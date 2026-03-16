@@ -2,23 +2,31 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: laravel-backend
-
 spec:
   replicas: 1
-
   selector:
     matchLabels:
       app: laravel-backend
-
   template:
     metadata:
       labels:
         app: laravel-backend
-
     spec:
       containers:
-      - name: backend
-        image: laravel-backend
-        imagePullPolicy: Never
-        ports:
-        - containerPort: 8000
+        - name: backend
+          image: mfremash/laravel-backend:v0.2.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            - name: APP_KEY
+              value: "base64:uPywohc0KUVzMJIMG5QhlTva7d+G25prpPv/+i6zFoQ="
+            - name: APP_ENV
+              value: "production"
+            - name: APP_DEBUG
+              value: "true"
+            - name: DB_CONNECTION
+              value: "sqlite"
+            - name: DB_DATABASE
+              value: "/app/database/database.sqlite"
+
