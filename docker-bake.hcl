@@ -12,7 +12,7 @@ group "default" {
 
 target "backend" {
   context    = "./backend"
-  dockerfile = "./backend/Dockerfile"
+  dockerfile = "Dockerfile"
   tags = [
     "${DOCKERHUB_USER}/laravel-backend:${TAG}"
   ]
@@ -20,7 +20,7 @@ target "backend" {
 
 target "frontend" {
   context    = "./frontend"
-  dockerfile = "./frontend/Dockerfile"
+  dockerfile = "Dockerfile"
   tags = [
     "${DOCKERHUB_USER}/react-frontend:${TAG}"
   ]
