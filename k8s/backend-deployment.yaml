@@ -13,9 +13,8 @@ spec:
         app: laravel-backend
     spec:
       containers:
-        - name: backend
+        - name: laravel-backend
           image: mfremash/laravel-backend:v0.2.1
-          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
           env:
@@ -24,9 +23,26 @@ spec:
             - name: APP_ENV
               value: "production"
             - name: APP_DEBUG
-              value: "true"
+              value: "false"
             - name: DB_CONNECTION
-              value: "sqlite"
+              value: "pgsql"
+            - name: DB_HOST
+              value: "postgres-service"
+            - name: DB_PORT
+              value: "5432"
             - name: DB_DATABASE
-              value: "/app/database/database.sqlite"
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_DB
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
 
