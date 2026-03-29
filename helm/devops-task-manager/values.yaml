@@ -1,0 +1,32 @@
+namespace: default
+
+backend:
+  image:
+    repository: mfremash/laravel-backend
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    port: 8000
+
+frontend:
+  image:
+    repository: mfremash/react-frontend
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    port: 80
+
+postgres:
+  enabled: true
+  auth:
+    database: task_manager
+    username: task_user
+    password: task_password
+  service:
+    port: 5432
+  persistence:
+    size: 1Gi
+
+ingress:
+  enabled: true
+  host: task-manager.local
